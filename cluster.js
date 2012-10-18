@@ -9,10 +9,6 @@ fs.readFile(__dirname + '/chainsaw-bobross.png', function(err, image_data){
   if (err) throw err;
 
 
-  function errorMsg() {
-    console.error("Something must be wrong with the connection ...");
-  }
-
   if (cluster.isMaster) {
     // Fork workers.
     for (var i = 0; i < numCPUs; i++) {
