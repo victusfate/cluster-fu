@@ -1,0 +1,6 @@
+build
+node_modules
+.DS_Store
+.lock-wscript
+npm-debug.log
+/.project
