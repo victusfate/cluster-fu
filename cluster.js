@@ -19,13 +19,17 @@ fs.readFile(__dirname + '/chainsaw-bobross.png', function(err, image_data){
       cluster.fork();
     }
     cluster.on('fork', function(worker) {
+
+      function errorMsg() {
+        console.error("Something must be wrong with the connection, worker",worker.id,"failed to start");
+      }      
       timeouts[worker.id] = setTimeout(errorMsg, 2000);
     });
     cluster.on('online', function(worker) {
       console.log("Yay, the worker responded after it was forked");
     });
     cluster.on('listening', function(worker, address) {
-      console.log("A worker is now connected to " + address.address + ":" + address.port);
+      console.log("worker ",worker.id,"is now connected to " + address.address + ":" + address.port);
       clearTimeout(timeouts[worker.id]);
     });
     cluster.on('disconnect', function(worker) {
